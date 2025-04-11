@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Slot Oyunu</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    .slot-box { font-size: 50px; margin: 20px; }
+    button { padding: 10px 20px; font-size: 16px; }
+    .balance { margin-top: 10px; font-size: 20px; }
+  </style>
+</head>
+<body>
+
+  <h1>Fruit Slot</h1>
+  <div class="slot-box" id="slots">?? ?? ??</div>
+  <button onclick="spin()">Spin Et (100 AZN)</button>
+  <div class="balance" id="balance">Balans: 1000 AZN</div>
+  <div class="balance" id="message"></div>
+
+  <script>
+    let balance = 1000;
+    const symbols = ['🍋','🍒','🍇','🔔','7️⃣'];
+
+    function spin() {
+      if (balance < 100) {
+        document.getElementById('message').textContent = 'Balansınız kifayət etmir!';
+        return;
+      }
+
+      balance -= 100;
+
+      const slot1 = symbols[Math.floor(Math.random() * symbols.length)];
+      const slot2 = symbols[Math.floor(Math.random() * symbols.length)];
+      const slot3 = symbols[Math.floor(Math.random() * symbols.length)];
+
+      document.getElementById('slots').textContent = `${slot1} ${slot2} ${slot3}`;
+
+      if (slot1 === slot2 && slot2 === slot3) {
+        balance += 500;
+        document.getElementById('message').textContent = 'Təbriklər! 500 AZN qazandınız!';
+      } else {
+        document.getElementById('message').textContent = 'Uduzdunuz, yenidən sınayın.';
+      }
+
+      document.getElementById('balance').textContent = `Balans: ${balance} AZN`;
+    }
+  </script>
+
+</body>
+</html>
